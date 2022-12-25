@@ -11,32 +11,48 @@ public class Main {
 
     public static void main(String[] args) {
         Map<Character, Integer> map = new HashMap<>();
+        countEachLetter(map);
+        char maxLetter = findMaxLetter(map);
+        char minLetter = findMinLetter(map);
+        System.out.println("буква \"" + maxLetter + "\" встречалась чаще всего");
+        System.out.println("буква \"" + minLetter + "\" встречалась реже всего");
+    }
+
+    public static void countEachLetter(Map<Character, Integer> map) {
         for (int i = 0; i < text.length(); i++) {
             char symbol = text.charAt(i);
             if (Character.isLetter(symbol)) {
                 if (map.containsKey(symbol)) {
                     int times = map.get(symbol);
-                    map.put(symbol, (times+1));
+                    map.put(symbol, (times + 1));
                 } else {
                     map.put(symbol, 1);
                 }
             }
         }
+    }
+
+    public static char findMaxLetter(Map<Character, Integer> map) {
         int maxInt = -1;
-        char maxChar=' ';
-        int minInt = Integer.MAX_VALUE;
-        char minChar=' ';
+        char maxLetter = ' ';
         for (Map.Entry<Character, Integer> kv : map.entrySet()) {
             if (kv.getValue() > maxInt) {
                 maxInt = kv.getValue();
-                maxChar = kv.getKey();
-            }
-            if (kv.getValue() < minInt) {
-                minInt = kv.getValue();
-                minChar = kv.getKey();
+                maxLetter = kv.getKey();
             }
         }
-        System.out.println("буква \"" + maxChar + "\" встречалась чаще всего");
-        System.out.println("буква \"" + minChar + "\" встречалась реже всего");
+        return maxLetter;
+    }
+
+    public static char findMinLetter(Map<Character, Integer> map) {
+        int minInt = Integer.MAX_VALUE;
+        char minLetter = ' ';
+        for (Map.Entry<Character, Integer> kv : map.entrySet()) {
+            if (kv.getValue() < minInt) {
+                minInt = kv.getValue();
+                minLetter = kv.getKey();
+            }
+        }
+        return minLetter;
     }
 }
